@@ -8,3 +8,8 @@ Foundation of `Move semantics` is distinguishing expressions that are `rvalues` 
 
 
 Distinction between arguments and parameters of a function is important, because parameters are `lvalues` but the arguments with which they are initialized may be `rvalues` or `lvalues`.  
+
+*Exception safety basic guarantee*: assuring callers that even if an exception is thrown, program invariants remain intact (no data structures are corrupted).  
+*strong guarantee*: state of the program remains as it was prior to the call.  
+
+Function objects created through lambda expressions are known as *closures*  
