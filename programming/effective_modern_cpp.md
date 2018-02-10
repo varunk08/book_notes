@@ -18,7 +18,6 @@ Function objects created through lambda expressions are known as *closures*
 
 ### Chapter 1 Deducing types
 `auto` and `decltype`  
-what is a  *univeral reference*?
 
 #### Item 1
 
@@ -31,4 +30,14 @@ void f(ParamType param);
 f(expr)
 ````
 
-the type `T` deducd is dependent on both `expr` and the form of `ParamType`.  
+the type `T` deduced is dependent on both `expr` and the form of `ParamType`.  
+A *univeral reference*'s declared type is `T&&`  
+
+compile time array size func using template function which takes in a reference to an array:
+````
+template <typename T>
+constexpr size_t arraySize(T(&)[N]) noexcept
+{
+    return N;
+}
+````
