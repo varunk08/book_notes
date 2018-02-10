@@ -19,7 +19,7 @@ Function objects created through lambda expressions are known as *closures*
 ### Chapter 1 Deducing types
 `auto` and `decltype`  
 
-#### Item 1
+#### 1: Template type deduction
 
 In a scenario like this,
 
@@ -30,7 +30,7 @@ void f(ParamType param);
 f(expr)
 ````
 
-the type `T` deduced is dependent on both `expr` and the form of `ParamType`.  
+_key_: the type `T` deduced is dependent on both `expr` and the form of `ParamType`.  
 A *univeral reference*'s declared type is `T&&`  
 
 compile time array size func using template function which takes in a reference to an array:
@@ -41,3 +41,4 @@ constexpr size_t arraySize(T(&)[N]) noexcept
     return N;
 }
 ````
+#### 2: `auto` type deduction  
