@@ -13,3 +13,22 @@ Distinction between arguments and parameters of a function is important, because
 *strong guarantee*: state of the program remains as it was prior to the call.  
 
 Function objects created through lambda expressions are known as *closures*  
+
+*smart pointers* overload the pointer-dereferencing operators (`operator-> and operator*`).  
+
+### Chapter 1 Deducing types
+`auto` and `decltype`  
+what is a  *univeral reference*?
+
+#### Item 1
+
+In a scenario like this,
+
+````
+template<typename T>
+void f(ParamType param);
+
+f(expr)
+````
+
+the type `T` deducd is dependent on both `expr` and the form of `ParamType`.  
