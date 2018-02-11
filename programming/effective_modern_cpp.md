@@ -41,4 +41,40 @@ constexpr size_t arraySize(T(&)[N]) noexcept
     return N;
 }
 ````
+````
+template<typename T>
+void func(xxx param);
+
+expr = xxx;
+
+func(expr);
+
+
+
+````
+
 #### 2: `auto` type deduction  
+Each of the auto-declarations are treated in the same manner as a template type dedcution, as though the auto declared variable is passed to a template function.  
+`auto` can deduce initializer list types by assuming it to be `std::initializer_list<T>` but templates cannot.  
+````
+auto x = 27;
+const auto cx = x;
+const auto& rx = x;
+````
+is treated as:  
+````
+template <typename T>
+void func_for_x(T param);
+
+func_for_x(27);
+
+template <typename T>
+void func_for_cx(const T param);
+
+func_for_cx(cx);
+
+template <typename T>
+void func_for_rx(const T& param);
+
+func_for_rx(rx);
+````
