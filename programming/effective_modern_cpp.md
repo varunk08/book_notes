@@ -49,8 +49,6 @@ expr = xxx;
 
 func(expr);
 
-
-
 ````
 
 #### 2: `auto` type deduction  
@@ -78,3 +76,9 @@ void func_for_rx(const T& param);
 
 func_for_rx(rx);
 ````
+
+#### 3: `decltype`:
+given an expression `decltype` returns the type.  
+`decltype` almost always yields the type of an object without modifications.  
+primary use is declaring function templates where the return type of the function depends on its parameter types.  
+To make sure a return type of `auto` does not use template type deduction, `decltype(auto)` is used to indicate that `decltype`  rules should be used for type deduction instead.  
