@@ -82,3 +82,9 @@ given an expression `decltype` returns the type.
 `decltype` almost always yields the type of an object without modifications.  
 primary use is declaring function templates where the return type of the function depends on its parameter types.  
 To make sure a return type of `auto` does not use template type deduction, `decltype(auto)` is used to indicate that `decltype`  rules should be used for type deduction instead.  
+
+#### 4: Know how to view `decltype`(s):
+Compile time Trick: Use an un defined template class and declare variables with it so the compiler will show an error along with the actual types of the variables declared.  
+Runtime: use `typeid(variable).name()` in a `printf`  
+`std::type_info::name` from IDEs is not reliable. The better alternate is Boost's TypeIndex library.  
+`boost::typeindex::type_id_with_cvr` takes the type as a template argument and does not remove const, volatile or reference qualifiers.  
