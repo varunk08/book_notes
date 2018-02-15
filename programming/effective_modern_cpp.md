@@ -88,3 +88,6 @@ Compile time Trick: Use an un defined template class and declare variables with 
 Runtime: use `typeid(variable).name()` in a `printf`  
 `std::type_info::name` from IDEs is not reliable. The better alternate is Boost's TypeIndex library.  
 `boost::typeindex::type_id_with_cvr` takes the type as a template argument and does not remove const, volatile or reference qualifiers.  
+
+#### 5: Prefer `auto` to explicit type declarations:  
+apparently dereferenced iterators type is known only to the compiler. so use auto to dereference an iterator and use by value.  
