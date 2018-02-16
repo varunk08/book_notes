@@ -91,3 +91,7 @@ Runtime: use `typeid(variable).name()` in a `printf`
 
 #### 5: Prefer `auto` to explicit type declarations:  
 apparently dereferenced iterators type is known only to the compiler. so use auto to dereference an iterator and use by value.  
+`std::function` can be any callable object in c++11. It generalizes the function pointer.  
+The return type of `vector.size()` is `std::vector<int>::size_type` which is a unsigned integer.  
+
+#### 6: Use the explicitly typed initializer idiom when auto deduces undesired types.  
