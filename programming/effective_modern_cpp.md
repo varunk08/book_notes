@@ -102,4 +102,6 @@ auto highPriority = features(w)[5];
 ````
 Here High priority is a `std::vector<bool>::reference` and not `bool`.  
 `auto` incorrectly deduces the type since `operator[]` cannot return a reference to bool. 
-The value deduced is dependent on how `std::vector<bool>::reference` is implemented. `std::vector<bool>::reference` is an example of a proxy class. The std library's smart pointers are also proxy classes.  (page74)  
+The value deduced is dependent on how `std::vector<bool>::reference` is implemented. `std::vector<bool>::reference` is an example of a proxy class. The std library's smart pointers are also proxy classes. Some classes in cpp employ *expression templates*. Avoid code of this form: `auto someVar = expression of "invisible" proxy class type;`  
+`static_cast<type>` would have to be used to explicitly assign such expressions to `auto` declared variables.  
+*invisible proxies*: those proxy classes that are returned for expressions in place of whay you would actually expect is returned!  
