@@ -95,3 +95,11 @@ apparently dereferenced iterators type is known only to the compiler. so use aut
 The return type of `vector.size()` is `std::vector<int>::size_type` which is a unsigned integer.  
 
 #### 6: Use the explicitly typed initializer idiom when auto deduces undesired types.  
+C++ forbids reference to bits.  
+````
+std::vector<bool> features(const Widget& w);
+auto highPriority = features(w)[5];
+````
+Here High priority is a `std::vector<bool>::reference` and not `bool`.  
+`auto` incorrectly deduces the type since `operator[]` cannot return a reference to bool. 
+The value deduced is dependent on how `std::vector<bool>::reference` is implemented. `std::vector<bool>::reference` is an example of a proxy class. The std library's smart pointers are also proxy classes.  (page74)  
