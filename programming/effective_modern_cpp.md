@@ -16,9 +16,6 @@ Function objects created through lambda expressions are known as *closures*
 
 *smart pointers* overload the pointer-dereferencing operators (`operator-> and operator*`).  
 
-### Chapter 1 Deducing types
-`auto` and `decltype`  
-
 #### 1: Template type deduction
 
 In a scenario like this,
@@ -105,3 +102,8 @@ Here High priority is a `std::vector<bool>::reference` and not `bool`.
 The value deduced is dependent on how `std::vector<bool>::reference` is implemented. `std::vector<bool>::reference` is an example of a proxy class. The std library's smart pointers are also proxy classes. Some classes in cpp employ *expression templates*. Avoid code of this form: `auto someVar = expression of "invisible" proxy class type;`  
 `static_cast<type>` would have to be used to explicitly assign such expressions to `auto` declared variables.  
 *invisible proxies*: those proxy classes that are returned for expressions in place of whay you would actually expect is returned!  
+
+#### 7: Distinguishing between `()`  and `{}` for object creation.
+confusion occurs with initialization of the form `type var = {};`. does assignment happen here?  
+*braced initialization* is universal and strict type checking is enforced.  
+cpp has *most vexing parse* problem where a call to a constuctor with no arguments is deduced as a function declaration. Using braces solves this problem. `Widget w1()` vs `Widget w1{}`. The former is a func declaration while the latter is a call to the constructor.    
