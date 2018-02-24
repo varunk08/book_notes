@@ -98,7 +98,7 @@ std::vector<bool> features(const Widget& w);
 auto highPriority = features(w)[5];
 ````
 Here High priority is a `std::vector<bool>::reference` and not `bool`.  
-`auto` incorrectly deduces the type since `operator[]` cannot return a reference to bool. 
+`auto` incorrectly deduces the type since `operator[]` cannot return a reference to bool.
 The value deduced is dependent on how `std::vector<bool>::reference` is implemented. `std::vector<bool>::reference` is an example of a proxy class. The std library's smart pointers are also proxy classes. Some classes in cpp employ *expression templates*. Avoid code of this form: `auto someVar = expression of "invisible" proxy class type;`  
 `static_cast<type>` would have to be used to explicitly assign such expressions to `auto` declared variables.  
 *invisible proxies*: those proxy classes that are returned for expressions in place of whay you would actually expect is returned!  
@@ -107,3 +107,10 @@ The value deduced is dependent on how `std::vector<bool>::reference` is implemen
 confusion occurs with initialization of the form `type var = {};`. does assignment happen here?  
 *braced initialization* is universal and strict type checking is enforced.  
 cpp has *most vexing parse* problem where a call to a constuctor with no arguments is deduced as a function declaration. Using braces solves this problem. `Widget w1()` vs `Widget w1{}`. The former is a func declaration while the latter is a call to the constructor.    
+`std::atomics` are uncopyable.  
+Initialization using `=` doesn't check for narrowing conversions.  
+If the parameters within the `std::initializer_list` which is used as the only argument for the constructor cannot be matched by the parameters, then the `non std::initializer_list` constructors are used.  
+Empty braces `{}` used in construction results in default constructor being called and not the constuctor that takes `std::initializer_list` with an empty list.  
+  This matters in `std::vector<>`. It takes an `std::initializer_list` in one constructor and in another constructor there are two arguments, first one taking num elements and second one taking initialization value for each element.  
+  This is also a problem when creating variadic templates that take multiple variable number of arguments.  
+  
