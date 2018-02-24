@@ -113,4 +113,3 @@ If the parameters within the `std::initializer_list` which is used as the only a
 Empty braces `{}` used in construction results in default constructor being called and not the constuctor that takes `std::initializer_list` with an empty list.  
   This matters in `std::vector<>`. It takes an `std::initializer_list` in one constructor and in another constructor there are two arguments, first one taking num elements and second one taking initialization value for each element.  
   This is also a problem when creating variadic templates that take multiple variable number of arguments.  
-  
