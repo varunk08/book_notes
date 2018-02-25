@@ -113,3 +113,6 @@ If the parameters within the `std::initializer_list` which is used as the only a
 Empty braces `{}` used in construction results in default constructor being called and not the constuctor that takes `std::initializer_list` with an empty list.  
   This matters in `std::vector<>`. It takes an `std::initializer_list` in one constructor and in another constructor there are two arguments, first one taking num elements and second one taking initialization value for each element.  
   This is also a problem when creating variadic templates that take multiple variable number of arguments.  
+
+#### 8: Prefer `nullptr` to `0` and `NULL`
+The type of `NULL` is implementation defined. If `NULL` is defined as a long, then conversion of `long` to `int`, `bool` and `void*` are equally good. Guideline is to avoid function overloading on pointer and integral types. `nullptr` doesn't have an integral or pointer type. The type of `nulllptr` is `std::nullptr_t` and it can convert to all pointer types.
