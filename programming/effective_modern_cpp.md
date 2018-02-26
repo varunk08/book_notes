@@ -115,4 +115,18 @@ Empty braces `{}` used in construction results in default constructor being call
   This is also a problem when creating variadic templates that take multiple variable number of arguments.  
 
 #### 8: Prefer `nullptr` to `0` and `NULL`
-The type of `NULL` is implementation defined. If `NULL` is defined as a long, then conversion of `long` to `int`, `bool` and `void*` are equally good. Guideline is to avoid function overloading on pointer and integral types. `nullptr` doesn't have an integral or pointer type. The type of `nulllptr` is `std::nullptr_t` and it can convert to all pointer types.
+The type of `NULL` is implementation defined. If `NULL` is defined as a long, then conversion of `long` to `int`, `bool` and `void*` are equally good. Guideline is to avoid function overloading on pointer and integral types. `nullptr` doesn't have an integral or pointer type. The type of `nullptr` is `std::nullptr_t` and it can convert to all pointer types.
+
+#### 9: Prefer alias declarations to typedefs
+C++11 supports `alias` which should be used instead of `typedef`
+````
+using TypeName = type;
+````
+`alias` declarations can be templatized. Example, a templated list with a custom allocator:
+````
+template<typename T>
+using MyAllocList = std::list<T, MyAlloc<T>>;
+
+MyAllocList<Widget> lw;
+````
+Names of dependent types must be preceded with *typename*  
