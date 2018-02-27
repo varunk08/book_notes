@@ -130,3 +130,6 @@ using MyAllocList = std::list<T, MyAlloc<T>>;
 MyAllocList<Widget> lw;
 ````
 Names of dependent types must be preceded with *typename*  
+
+#### 10: Prefer scoped `enums` to unscoped `enums`
+Forward declaring enums prevents the need for recompilation if it's changed.  
