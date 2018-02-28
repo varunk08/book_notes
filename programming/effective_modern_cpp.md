@@ -132,4 +132,7 @@ MyAllocList<Widget> lw;
 Names of dependent types must be preceded with *typename*  
 
 #### 10: Prefer scoped `enums` to unscoped `enums`
-Forward declaring enums prevents the need for recompilation if it's changed.  
+Forward declaring enums, using `enum class` prevents the need for recompilation if it's changed.  
+To save memory, compilers choose the smallest underlying type for an unscoped enum. Like choosing `char` as enum type if there are only a few enums.  
+The default type for scoped enums is `int`. This can be specified.  
+Use `noexcept` when the function will never throw an exception.
