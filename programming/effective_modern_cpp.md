@@ -141,3 +141,9 @@ Use `noexcept` when the function will never throw an exception.
 C++ defines default functions for you. The C++98 approach was to declare them private and not define them. The copy constructor and copy assignment operator are handled this way. Use `=delete` to mark the copy constructor and copy assignment operator as *deleted* functions in C++11. Using these functions will cause compilation to fail, whereas in the previous method of declaring them private would only be caught at link-time. Non-member functions can also be *deleted*. This prevents default overloaded functions from being used. Template functions can also be deleted to prevent unwanted compiler provided overloads. Function templates inside a class cannot have a different access level compared to the main template.
 
 #### 12: Declare overriding functions `override`
+virtual function overriding is what makes it possible to invoke a derived class function through a base class interface. In c++11 the base function and derived function must have similar *reference qualifiers*.
+````
+void doWork() &; // applies only when *this is an lvalue
+void doWork() &&; // applies only when *this is an rvalue
+````
+Compiler warnings vary in overriding function specification. There are many things that can go wrong `const`-ness, lvalue or rvalue type, incorrect parameter type etc. The keyword `override` is a keyword only if found in end of function.
