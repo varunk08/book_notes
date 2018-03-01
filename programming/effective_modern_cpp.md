@@ -136,3 +136,8 @@ Forward declaring enums, using `enum class` prevents the need for recompilation 
 To save memory, compilers choose the smallest underlying type for an unscoped enum. Like choosing `char` as enum type if there are only a few enums.  
 The default type for scoped enums is `int`. This can be specified.  
 Use `noexcept` when the function will never throw an exception.
+
+#### 11: Prefer `deleted` functions to private undefined ones.
+C++ defines default functions for you. The C++98 approach was to declare them private and not define them. The copy constructor and copy assignment operator are handled this way. Use `=delete` to mark the copy constructor and copy assignment operator as *deleted* functions in C++11. Using these functions will cause compilation to fail, whereas in the previous method of declaring them private would only be caught at link-time. Non-member functions can also be *deleted*. This prevents default overloaded functions from being used. Template functions can also be deleted to prevent unwanted compiler provided overloads. Function templates inside a class cannot have a different access level compared to the main template.
+
+#### 12: Declare overriding functions `override`
