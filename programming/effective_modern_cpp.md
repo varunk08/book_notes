@@ -147,3 +147,6 @@ void doWork() &; // applies only when *this is an lvalue
 void doWork() &&; // applies only when *this is an rvalue
 ````
 Compiler warnings vary in overriding function specification. There are many things that can go wrong `const`-ness, lvalue or rvalue type, incorrect parameter type etc. The keyword `override` is a keyword only if found in end of function.
+`rvalues` are temporary objects.
+
+#### 13: Prefer `const_iterator`s to `iterator`s.
