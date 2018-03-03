@@ -150,3 +150,4 @@ Compiler warnings vary in overriding function specification. There are many thin
 `rvalues` are temporary objects.
 
 #### 13: Prefer `const_iterator`s to `iterator`s.
+In c++11 container functions can return positions as `const_iterator`s. In c++98 it was not so convenient to use `const_iterator`s but  in c++11 and c++14, it is made practical and so should be used. 
