@@ -150,4 +150,7 @@ Compiler warnings vary in overriding function specification. There are many thin
 `rvalues` are temporary objects.
 
 #### 13: Prefer `const_iterator`s to `iterator`s.
-In c++11 container functions can return positions as `const_iterator`s. In c++98 it was not so convenient to use `const_iterator`s but  in c++11 and c++14, it is made practical and so should be used. 
+In c++11 container functions can return positions as `const_iterator`s. In c++98 it was not so convenient to use `const_iterator`s but  in c++11 and c++14, it is made practical and so should be used.
+
+#### 14: Declare functions `noexcept` if they wont emit exceptions
+`noexcept` functions are more optimizable. Funtions with *wide contracts* don't rely on preconditions and are generally `noexcept`. Functions with *narrow contracts* are dependent on pre-conditions. Conditional `noexcept`s exist. ex: `noexcept(false)`. If a functions shouldnt' throw exceptions, then return codes for errors will have to be implemented - larger runtime penalty due to branching.
