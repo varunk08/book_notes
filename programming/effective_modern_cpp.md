@@ -154,3 +154,6 @@ In c++11 container functions can return positions as `const_iterator`s. In c++98
 
 #### 14: Declare functions `noexcept` if they wont emit exceptions
 `noexcept` functions are more optimizable. Funtions with *wide contracts* don't rely on preconditions and are generally `noexcept`. Functions with *narrow contracts* are dependent on pre-conditions. Conditional `noexcept`s exist. ex: `noexcept(false)`. If a functions shouldnt' throw exceptions, then return codes for errors will have to be implemented - larger runtime penalty due to branching.
+
+#### 15: Use `constexpr` whenever possible
+constexpr is a compile time const. It need not be, but it helps the compiler optimize things. For example, for embedded applications, the compiler can put constants in read-only-memory.
