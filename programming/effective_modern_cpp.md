@@ -157,3 +157,4 @@ In c++11 container functions can return positions as `const_iterator`s. In c++98
 
 #### 15: Use `constexpr` whenever possible
 constexpr is a compile time const. It need not be, but it helps the compiler optimize things. For example, for embedded applications, the compiler can put constants in read-only-memory.
+`constexpr` functions act like normal functions if its called with one or more values that are not known during compilatin.
