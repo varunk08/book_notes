@@ -167,3 +167,9 @@ warning: If you declare an object or function `constexpr` clients may use it in 
 #### 16: Make const member functions thread safe
 use `mutable` for declaring variables inside `const` functions to be able to modify them.
 but having such variables inside `const` member functions might lead to different threads trying to modify them at the same time leading to a race condition.
+adding a mutex to a class makes it unable to be copied or moved, since `std::mutex` cannot be copied or moved.
+for simply counting `std::atomic` is a better light weight fit than `std::mutex`.
+`std::atomic` could be expensive though, since multiple thread would read the same value, perform calculations and try to set it.  
+for setting single variables `std::atomic` is correct. For multiple variables `std::mutex` is unavoidable.  
+
+#### 17: Understand special member function generation
