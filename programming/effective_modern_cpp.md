@@ -163,3 +163,5 @@ In C++11 `constexpr` functions may contain no more than a single executable stat
 `constexpr` functions are limited to taking and returning *literal* types. i.e. values known during compile-time.
 User-defined data types can also have `constexpr` constructors and member functions. `constexpr` declarations of such types will be constructed at compile time using the `constexpr` constructors.
 warning: If you declare an object or function `constexpr` clients may use it in such contexts, but later when you decide it was a mistake and remove it, client code might not compile.
+
+#### 16: Make const member functions thread safe
