@@ -157,4 +157,9 @@ In c++11 container functions can return positions as `const_iterator`s. In c++98
 
 #### 15: Use `constexpr` whenever possible
 constexpr is a compile time const. It need not be, but it helps the compiler optimize things. For example, for embedded applications, the compiler can put constants in read-only-memory.
-`constexpr` functions act like normal functions if its called with one or more values that are not known during compilatin.
+`constexpr` functions act like normal functions if its called with one or more values that are not known during compilation.
+`std::pow` is not a constexpr function. it can't be used say to init an array.
+In C++11 `constexpr` functions may contain no more than a single executable statement: a `return`.
+`constexpr` functions are limited to taking and returning *literal* types. i.e. values known during compile-time.
+User-defined data types can also have `constexpr` constructors and member functions. `constexpr` declarations of such types will be constructed at compile time using the `constexpr` constructors.
+warning: If you declare an object or function `constexpr` clients may use it in such contexts, but later when you decide it was a mistake and remove it, client code might not compile.
