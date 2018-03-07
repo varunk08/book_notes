@@ -165,3 +165,5 @@ User-defined data types can also have `constexpr` constructors and member functi
 warning: If you declare an object or function `constexpr` clients may use it in such contexts, but later when you decide it was a mistake and remove it, client code might not compile.
 
 #### 16: Make const member functions thread safe
+use `mutable` for declaring variables inside `const` functions to be able to modify them.
+but having such variables inside `const` member functions might lead to different threads trying to modify them at the same time leading to a race condition.
