@@ -173,3 +173,26 @@ for simply counting `std::atomic` is a better light weight fit than `std::mutex`
 for setting single variables `std::atomic` is correct. For multiple variables `std::mutex` is unavoidable.  
 
 #### 17: Understand special member function generation
+ C++98 generates four functions: default constructor, destructor, copy constructor and  copy assignment operator.  
+ default constructor is generated only if the class declares no constructors at all.  
+ generated special functions are public and inline and non-virtual unless the function is a destructor in a derived class inheriting from a base class with a virtual destructor. in that case the compiler generated destructor if also virtual.  
+C++11 adds two more: the move constructor and the move assignment operator.
+````
+class Widget
+{
+  Widget (Widget&& rhs); // move constructor
+  Widget& operator=(Widget&& rhs); // move assignment operator
+}
+````
+
+most c++98 legacy classes don't support move construction and will be copy constructed in the background. move operation is used only if it supports, else copy operation is used.
+generation of move functions is not independent. move construction and move assignment are tied together. declaring one by the user will prevent the other from being auto-generated.
+move operations won't be generated for any class that explicitly declares a copy operation. vice versa is also true. declaring a move operation prevents generation of copy operations.
+move operations are generated for classes only if these are true:
+1. No copy operations are declared
+2. no move operations are declared
+3. no destructor is declared in the class.
+
+If you want to declare a custom destructor but can get away with using the default copy and assign behaviour, use the keyword `=default`. polymorphic base classes are classes that define interfaces through which derived base class objects re manipulated. they normally have virtual destructors.
+copying a `std::map` is orders of magnitude slower than moving it.
+adding `final` to a virtual function prevents the function from being overridden in derived classes. `final` if used in a class will prevent it from being derived.
