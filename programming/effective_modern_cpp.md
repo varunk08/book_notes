@@ -196,3 +196,19 @@ move operations are generated for classes only if these are true:
 If you want to declare a custom destructor but can get away with using the default copy and assign behaviour, use the keyword `=default`. polymorphic base classes are classes that define interfaces through which derived base class objects re manipulated. they normally have virtual destructors.
 copying a `std::map` is orders of magnitude slower than moving it.
 adding `final` to a virtual function prevents the function from being overridden in derived classes. `final` if used in a class will prevent it from being derived.
+
+
+#### Smart pointers
+Things wrong with raw pointers:
+1. declaration doesn't reveal whether it's an array or something else
+2. declaration doesn't reveal whether the object should be destroyed, whether the pointer owns the objects
+3. doesn't reveal mechanism of deletion. `delete` or other mechanism?
+4. if `delete` can be used, doesn't reveal whether `delete` or `delete[]` should be used.
+5. difficult to ensure that destruction is performed only once in code path.
+6. no way to tell if pointer dangles
+
+*Smart pointers* are wrappers around raw pointers. There are four smart pointers in c++11: `std::auto_ptr`, `std::unique_ptr`, `std::shared_ptr` and `std::weak_ptr`.  
+`std::auto_ptr` is a deprecated leftover from c++98. `std::unique_ptr` does everything `std::auto_ptr` does plus more.
+
+#### 18: Use `std::unique_ptr` for exclusive ownership resource management
+It embodies *exclusive ownership* semantics. It always owns what it points to. Copying isn't allowed. It is a move-only type. Upon destruction, it destroys its resource.
