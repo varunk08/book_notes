@@ -212,3 +212,8 @@ Things wrong with raw pointers:
 
 #### 18: Use `std::unique_ptr` for exclusive ownership resource management
 It embodies *exclusive ownership* semantics. It always owns what it points to. Copying isn't allowed. It is a move-only type. Upon destruction, it destroys its resource.
+during constcution `std::unique_ptr` objects can be configured to use *custom deleters*: arbitrary functions or function objects, including those from lambda expressions to be invoked when it's time for their resources to be destroyed.  
+a raw pointer cannot be assigned to a smart points. `reset` is used to assign a raw ptr to a smart pointer.  
+Using custom deleters as lambda expressions means size increment of `std::unique_ptr` is from  one word to two. these lamdba expressions must be stateless, captureless.  
+`std::unique_ptr`  comes in two forms, one for individual objects `std::unique_ptr<T>` and one for arrays `std::unique_ptr<T[]>`  
+`std::unique_ptr` can be easily converted into a `std::shared_ptr`.  
