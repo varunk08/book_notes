@@ -217,3 +217,7 @@ a raw pointer cannot be assigned to a smart points. `reset` is used to assign a 
 Using custom deleters as lambda expressions means size increment of `std::unique_ptr` is from  one word to two. these lamdba expressions must be stateless, captureless.  
 `std::unique_ptr`  comes in two forms, one for individual objects `std::unique_ptr<T>` and one for arrays `std::unique_ptr<T[]>`  
 `std::unique_ptr` can be easily converted into a `std::shared_ptr`.  
+
+#### 19: Use `std::shared_ptr` for shared-ownership resource management
+`std::shared_ptr` tries to implement something similar to garbage collection but with predictable timing of destructors.  
+The last `std::shared_ptr` that was pointing to an object destroys the object when it is destroyed or when it points to something else.  
