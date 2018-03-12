@@ -220,4 +220,14 @@ Using custom deleters as lambda expressions means size increment of `std::unique
 
 #### 19: Use `std::shared_ptr` for shared-ownership resource management
 `std::shared_ptr` tries to implement something similar to garbage collection but with predictable timing of destructors.  
-The last `std::shared_ptr` that was pointing to an object destroys the object when it is destroyed or when it points to something else.  
+The last `std::shared_ptr` that was pointing to an object destroys the object when it is destroyed or when it points to something else. It refers the objects reference count.  `std::shared_ptr` is twice the size of a raw pointer. Memory for the reference count must be dynamically allocated. Increments and decrements of the reference count must be atomic. The type of the deleter for `std::shared_ptr` is not part of the type of the pointer itself. The reference count is part of a larger data structure known as the *control block*. There is a control block for each object managed by `std::shared_ptr`.  
+A control block is created under the following conditions:
+1. a `std::make_shared` always creates a control block.
+2. whenever a `std::shared_ptr` is constructed from a unique-ownership pointer like `std::unique_ptr` and `std::auto_ptr`
+3. when `std::shared_ptr` constructor is called witha a raw pointer.
+
+constructing two `std::shared_ptr`s from a single raw pointer leads to undefined behaviour.
+`std::enable_shared_from_this` if you want a class managed by `std::shared_ptr`s to be able to safely create a `std::shared_ptr` from a `this` pointer.
+*Curiously named recurring template pattern*: when a derived class inherits from a base class that is templatized on the type of the derived class!
+
+#### 20: Use `std::weak_ptr` for `std::shared_ptr` like pointers that can dangle.
