@@ -231,3 +231,14 @@ constructing two `std::shared_ptr`s from a single raw pointer leads to undefined
 *Curiously named recurring template pattern*: when a derived class inherits from a base class that is templatized on the type of the derived class!
 
 #### 20: Use `std::weak_ptr` for `std::shared_ptr` like pointers that can dangle.
+`std::shared_ptr` cannot know if the object it points to has been destroyed. In that case, the pointer dangles. `std::weak_ptr` can track when it dangles. It can't be dereferenced or tested for nullness. It is an augmentation of `std::shared_ptr`.  
+`std::weak_ptr` does not affect the reference count. `std::shared_ptr` is used to initialize a `std::weak_ptr`.  
+`std::shared_ptr` can be set to nullptr. To check if the `std::weak_ptr` points to a destroyed object, check using `std::weak_ptr.expired()`  
+In the time between the check to `expired()` and trying to dereference the pointer, some other thread may change the object using the `std::shared_ptr`. To prevent this race condition, use `std::weak_ptr.lock()`, which returns an `std::shared_ptr`. It is null if the object has expired.
+If a `std::weak_ptr` which points to an expired object is used to initialize a `std::shared_ptr` an exception will be thrown.  
+An example usage of `std::weak_ptr` is a factory function which returns `std::shared_ptr` for objects and uses `std::weak_ptr` for it's internal cache. when the caller is done using the returned object, it can be destroyed and the weak pointers used in the internal cache can detect when they dangle. `std::weak_ptr`s can detect when they dangle only when the object is also managed by a `std::shared_ptr`.  
+Another usage scenario: *Observer Design Pattern* has two components: subjects and observers. In most implementations subjects hold a pointer to the observer to issue state change notifications. The subjects can hold a list of `std::weak_ptr`s for observers so that they can detect if the observers are destroyed if the pointers dangle.
+`std::shared_ptr` cycles: When two objects have a shared smart pointer to each other but none of the other program data structures have a pointer to them, these objects cannot be accessed or their memory reclaimed because of the non-zero reference count!  
+`std::weak_ptr`s can be used to break this cycle.
+Other uses cases are in non-hierarchical data structures. (In hierarchical data structures, parent can point to child using `std::unique_ptr` and child to parent using raw pointers, since when the parent is destroyed the child will have to be destroyed too and the child will never have a dangling parent pointer).
+`std::weak_ptr`s manipluate a second reference count that doesn't affect the actual reference count of the object pointed to by `std::shared_ptr`.  
