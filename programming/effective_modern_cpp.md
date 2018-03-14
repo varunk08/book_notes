@@ -242,3 +242,17 @@ Another usage scenario: *Observer Design Pattern* has two components: subjects a
 `std::weak_ptr`s can be used to break this cycle.
 Other uses cases are in non-hierarchical data structures. (In hierarchical data structures, parent can point to child using `std::unique_ptr` and child to parent using raw pointers, since when the parent is destroyed the child will have to be destroyed too and the child will never have a dangling parent pointer).
 `std::weak_ptr`s manipluate a second reference count that doesn't affect the actual reference count of the object pointed to by `std::shared_ptr`.  
+
+#### 21 Prefer `std::make_unique` and `std::make_shared` to direct use of `new`
+
+it was introduced in c++14
+
+basic version for c++11 use:
+````
+template <typename T, typename... Ts>
+
+std::unique_ptr<T> make_unique(Ts&&... params)
+{
+    return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
+}
+````
