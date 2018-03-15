@@ -256,3 +256,16 @@ std::unique_ptr<T> make_unique(Ts&&... params)
     return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
 }
 ````
+
+`std::make_unique` and `std::make_shared` and `std::allocate_shared` are the three make functions. They return a smart pointer after calling the objects constructor.  
+Code duplication increases compile times, leads to bloated object code and makes code base difficult to work with.  
+`std::make_shared` allocates one chunk of memory for both the object constructed and the control block.  
+There are circumstances where the make functions should not be used: (1) when using a custom deleter, (2) the perfect-forwarding construction in the make functions uses parantheses (calling the non-`std::initializer_list` constructor). Braced initializer cannot be used, as they can't be perfect-forwarded.  
+For `std::shared_ptr`'s make function, additional limitations are: custom operator new and operator delete cannot be used since they handle memory of size exactly `sizeof(object)`. The make function `std::allocate_shared` allocates additional mem for control block.  
+A *weak count* is maintained in the control block in addition to the *reference count*. Even if the *reference count* is zero, if there are any `std::weak_ptr`s pointing to the block, the control block is not deallocated. Here the *weak count* is non-zero as long as one `std::weak_ptr` exists.  
+Using functions within the constuction call, causes the compiler to generate out-of-order code that can cause memory to be leaked. It's better to create the smart pointer in a separate line and then pass in to a function as a parameter, rather than constructing the smart pointer in the function call. The arg is passed as an rvalue (move) before and now the arg is passed as an lvalue (copy). `std::move` can be used to pass the smart pointer to the function though.  
+````
+std::shared_ptr<Widget> spw(new Widget, customDeleter);
+processWidget(std::move(spw), computePriority();
+````
+#### Item 22: When using the pimpl idiom, define special member functions in the implementation file.
