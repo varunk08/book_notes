@@ -282,3 +282,10 @@ Widget::Widget()
 : pImpl(std::make_unique<Impl>()) {}
 ````
 The destructor is no longer needed. There is a problem with the default deleter. If the compiler sees that it is using the default deleter on a raw pointer to an incomplete type, then it will `static_assert`. So a destructor must be declared before the impl type has been defined.   
+
+#### Chapter 5 Rvalue reference, move semantics and perfect forwarding
+
+_Move semantics_: Gives option to replace expensive copy operations with less expensive move operations.  
+_Perfect forwarding_: makes it possible to write function templates that take arbitrary arguments.  
+
+#### 23 Understand `std::move` and `std::forward`
