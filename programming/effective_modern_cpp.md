@@ -269,3 +269,16 @@ std::shared_ptr<Widget> spw(new Widget, customDeleter);
 processWidget(std::move(spw), computePriority();
 ````
 #### Item 22: When using the pimpl idiom, define special member functions in the implementation file.
+Pimpl idiom is where the members of a class are moved to a separate implementation class and the main class simply has a pointer to this implementation class. This speeds up  compilation since the clients of the main class don't have to include header files that the implementation is dependent on and the impl can change without the clients have to make changes.  
+The allocation and deallocation of data members (the impl class) goes in the imple file of the main class.
+````
+Widget::Widget()
+:
+pImpl(new Impl) {}
+````
+Instead of using raw pointers, smart pointers can be used to handle impl allocation and deallocation.
+````
+Widget::Widget()
+: pImpl(std::make_unique<Impl>()) {}
+````
+The destructor is no longer needed. There is a problem with the default deleter. If the compiler sees that it is using the default deleter on a raw pointer to an incomplete type, then it will `static_assert`. So a destructor must be declared before the impl type has been defined.   
