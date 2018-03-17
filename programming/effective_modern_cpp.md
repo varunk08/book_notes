@@ -289,3 +289,22 @@ _Move semantics_: Gives option to replace expensive copy operations with less ex
 _Perfect forwarding_: makes it possible to write function templates that take arbitrary arguments.  
 
 #### 23 Understand `std::move` and `std::forward`
+Neither of them do anything at runtime, they both don't generate any executable code. They produce casts.  
+`std::move` unconditionally casts to an *rvalue*
+```
+template <typename T>
+typename remove_reference<T>::type&& move (T&& param)
+{
+    using ReturnType = typename remove_reference<T>::type&&;
+
+    return static_cast<ReturnType>(param);
+}
+
+```
+
+`std::move` returns an rvalue reference.
+Don't declare objects const if you want to move from them. The copy constuctor will be called for const types, and not the non-const rvalue move constructor.  
+`std::forward` is a conditional cast.
+function parameters are lvalues. Whether an argument was initialized as an lvalue or an rvalue is encoded in the template type T and `std::forward` can read that encoded information to know to conditionally cast to the required lvalue or rvalue type.
+
+#### 24: Distinguish universal references from rvalue references.
