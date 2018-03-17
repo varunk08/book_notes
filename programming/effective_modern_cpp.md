@@ -308,3 +308,15 @@ Don't declare objects const if you want to move from them. The copy constuctor w
 function parameters are lvalues. Whether an argument was initialized as an lvalue or an rvalue is encoded in the template type T and `std::forward` can read that encoded information to know to conditionally cast to the required lvalue or rvalue type.
 
 #### 24: Distinguish universal references from rvalue references.
+To declare an rvalue reference to some type `T`, we write `T&&`.  
+It doesn't always work that way!
+rvalue references bind only to rvalues.  
+`T&&` are actually *universal references*, can behave as rvalue references or lvalue references `T&`.  
+They can bind to const or non-const objects, to volatile or non-volatile objects and even to non-const and volatile objects.  
+If `T&&` appears without type deduction scenario, then it is a rvalue reference.  
+```
+void f(Widget&& param);     // no type deduction
+auto&& var2 = var1;         // type deduction
+Widget&& var1 = Widget();   // no type deduction. var1 is a rvalue reference
+```
+If the initializer of a universal reference is an rvalue then it is an rvalue ref, if it is an lvalue, then it is an lvalue reference.  
