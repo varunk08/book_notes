@@ -320,3 +320,14 @@ auto&& var2 = var1;         // type deduction
 Widget&& var1 = Widget();   // no type deduction. var1 is a rvalue reference
 ```
 If the initializer of a universal reference is an rvalue then it is an rvalue ref, if it is an lvalue, then it is an lvalue reference.  
+
+#### 25: Use std::move on rvalue references, std::forward on universal references
+Rvalue references bind only to objects that are candidates for moving.
+```
+class Widget
+{
+    Widget(Widget&& rhs); // rhs refers to an object eligible for moving.
+};
+```
+A *universal reference* on the other hand might be bound to an rvalue or lvalue reference.
+Rvalue references should be unconditionally cast to rvalue when forwarding them to other functions. Universal references should be conditionally cast to rvalues when forwarding them.
