@@ -331,3 +331,5 @@ class Widget
 ```
 A *universal reference* on the other hand might be bound to an rvalue or lvalue reference.
 Rvalue references should be unconditionally cast to rvalue when forwarding them to other functions. Universal references should be conditionally cast to rvalues when forwarding them.
+*universal  references* should be cast to rvalues only if they were initialized with an rvalue.
+Passing a variable assuming it will be copied while internally the function does a `std::move` can lead to the passed in variable ending up with an unspecified value.
