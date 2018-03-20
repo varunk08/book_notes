@@ -333,3 +333,28 @@ A *universal reference* on the other hand might be bound to an rvalue or lvalue 
 Rvalue references should be unconditionally cast to rvalue when forwarding them to other functions. Universal references should be conditionally cast to rvalues when forwarding them.
 *universal  references* should be cast to rvalues only if they were initialized with an rvalue.
 Passing a variable assuming it will be copied while internally the function does a `std::move` can lead to the passed in variable ending up with an unspecified value.
+Replacing func that takes universal reference with two overloaded funcs that take lvalue and rvalue references incur runtime costs in some cases.  
+Poor scalability: funcs that take arg pack will need o(2^n) overloads.
+```
+Matrix operator+ (Matrix&& lhs, const Matrix& rhs)
+{
+    lhs += rhs;
+    return std::move(lhs);
+}
+
+```
+is more efficient than
+```
+Matrix operator+ (Matrix&& lhs, const Matrix& rhs)
+{
+    lhs += rhs;
+    return lhs;
+}
+
+```
+since in the first the move constructor will be used but in the second the value will be copied.
+*Return value optimization (RVO)*: local variable is constructed in the memory of the return value to avoid copying.
+RVO can be used only if the return value is a local variable.  
+Never apply `std::move` or `std::Forward` for local values that are returned by value, since they are eligible for RVO.
+
+#### 26: Avoid  overloading on universal references.
