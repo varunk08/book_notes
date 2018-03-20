@@ -358,3 +358,8 @@ RVO can be used only if the return value is a local variable.
 Never apply `std::move` or `std::Forward` for local values that are returned by value, since they are eligible for RVO.
 
 #### 26: Avoid  overloading on universal references.
+
+In function arguments, lvalues passed are copied.
+In func overloading, an exact match beats a match that requires a promotion, such as a short to an  int.
+The interaction among perfect-forwarding constructors and compiler generated copy and move operations is tricky.  
+Overloading on universal reference parameters should be avoided.  
