@@ -363,3 +363,10 @@ In function arguments, lvalues passed are copied.
 In func overloading, an exact match beats a match that requires a promotion, such as a short to an  int.
 The interaction among perfect-forwarding constructors and compiler generated copy and move operations is tricky.  
 Overloading on universal reference parameters should be avoided.  
+
+#### 27: Familiarize yourself with alternatives to overloading and universal references
+
+Abandon overloading: use different func names for overloaded funcs. won't work for constructors  
+Pass by `const T&`: lvalue ref to const. It's inefficient (no compiler optimizations?, no move?)  
+Pass by Value: simple and explicit  
+Use Tag dispatch: if a universal reference parameter is part of a param list containing other types, then the match for other types takes priority. These tags are extra params which serve no runtime purpose. The compiler should optimize them away. See *template metaprogramming*.  
