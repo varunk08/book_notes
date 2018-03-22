@@ -370,3 +370,34 @@ Abandon overloading: use different func names for overloaded funcs. won't work f
 Pass by `const T&`: lvalue ref to const. It's inefficient (no compiler optimizations?, no move?)  
 Pass by Value: simple and explicit  
 Use Tag dispatch: if a universal reference parameter is part of a param list containing other types, then the match for other types takes priority. These tags are extra params which serve no runtime purpose. The compiler should optimize them away. See *template metaprogramming*.  
+
+`std::enable_if` forces compilers to behave as if a particular template didn't exist.
+```
+class Person
+{
+    public:
+    template < typename T,
+               typename = typename std::enable_if< !std::is_base_of< Person,
+                                                                     typename std::decay<T>::type
+                                                                   >::value
+                                                  >::type
+              >
+    explicit Person(T&& n);
+
+}
+
+```
+Things to remember:
+1. Alternatives to the combination of universal references and overloading include the use of distinct function names, passing parameters by lvalue-reference-to-const, passing parameters by value, and using tag dispatch.
+2. Constraining templates via std::enable_if permits the use of universal references and overloading together, but it controls the conditions under which compilers may use the universal reference overloads.
+3. Universal reference parameters often have efficiency advantages, but they typically have usability disadvantages.
+
+#### 28: Understand reference collapsing
+For this template func, the deduced parameter T will encode whether the argument passed to param was an lvalue or an rvalue.
+```
+template <typename T>
+void func(T&& param);
+
+```
+References to references are illegal in C++
+`auto& & rx = x;` won't compile.  
