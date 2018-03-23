@@ -401,3 +401,20 @@ void func(T&& param);
 ```
 References to references are illegal in C++
 `auto& & rx = x;` won't compile.  
+```
+template <typename T>
+void func(T&& param);
+func(w);
+```
+becomes
+```
+void func(Widget& && param);
+```
+and ultimately becomes
+```
+void func(Widget& param);
+```
+due to reference collapsing by the compiler.  
+Four possible reference-reference combinations with lvalue and rvalue references.  
+Rule: *If either reference is an lvalue reference, the result is an lvalue reference. Otherwise (i.e., if both are rvalue references) the result is an rvalue reference.*
+Example `Widget&` is an lvalue and `Widget`is an rvalue. `std::forward` converts lvalue to lvalue ref and rvalue to rvalue reference.
