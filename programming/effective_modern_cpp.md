@@ -418,3 +418,11 @@ due to reference collapsing by the compiler.
 Four possible reference-reference combinations with lvalue and rvalue references.  
 Rule: *If either reference is an lvalue reference, the result is an lvalue reference. Otherwise (i.e., if both are rvalue references) the result is an rvalue reference.*
 Example `Widget&` is an lvalue and `Widget`is an rvalue. `std::forward` converts lvalue to lvalue ref and rvalue to rvalue reference.
+
+Reference collapsing occurs in four contexts:
+1. Template Initialization
+2. Type Generation for auto variables
+3. Typedefs and alias declarations
+4. decltype
+
+#### 29: Assume move operations are not present, not cheap and not used.
