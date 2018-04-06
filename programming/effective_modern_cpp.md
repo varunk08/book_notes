@@ -426,3 +426,10 @@ Reference collapsing occurs in four contexts:
 4. decltype
 
 #### 29: Assume move operations are not present, not cheap and not used.
+`std::array` stores the data directly in the object itself. Move operation is not merely just copying the pointer to the heap memory for the data like in say `std::vector`. Each element of the array is individually copied or moved.  
+`std::string` offers constant time moves and linear time copies. Unless *small string optimization* is used for strings with smaller than 15 characters. Here the string is stored in a buffer within the object.   
+Move no good:
+1. No move operations - copying is used.
+2. Not faster.
+3. Not usable - move operations require `noexcept`
+4. Source not lvalue - only rvalues maybe used for move sources.
