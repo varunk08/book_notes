@@ -433,3 +433,16 @@ Move no good:
 2. Not faster.
 3. Not usable - move operations require `noexcept`
 4. Source not lvalue - only rvalues maybe used for move sources.
+
+
+#### 30: Familiarize yourself with perfect forwarding failure cases.
+*forwarding* is when one func passes what it was passed exactly to the next func. This rules out by-value parameters because they're copies of what the original caller passed on. Pointer parameters are also ruled out. This only deals with parameters that are references.  
+*Perfect forwarding* means we also forward some salient characteristics: types, whether lvalue or rvalue, whether const or volatile.  
+Only universal refs encode info about the lvalueness or rvalueness of the args.  
+
+A good forwarding template func should be a *variadic* template - that takes any number of arguments.  
+Kinds of arguments that can be perfect-forwarded:
+1. Braced initializers
+2. 0 or NULL as null pointers
+3. Declaration-only integral static const and constexpr data members
+4.
