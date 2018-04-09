@@ -445,4 +445,7 @@ Kinds of arguments that can be perfect-forwarded:
 1. Braced initializers
 2. 0 or NULL as null pointers
 3. Declaration-only integral static const and constexpr data members
-4.
+4. Overloaded function names and template Names
+5. Bitfields
+
+### Chapter 6 Lambda Expressions
