@@ -449,3 +449,12 @@ Kinds of arguments that can be perfect-forwarded:
 5. Bitfields
 
 ### Chapter 6 Lambda Expressions
+*lambda expresssion* is just the code. A *closure* is the runtime object created by a lambda. A *closure class* is a class from which a closure is instantiated. Each lambda causes compilers to generate a unique closure class.
+
+#### 31: Avoid default capture modes.
+two default capture modes: by-ref and by-value  
+default capture mode is defined within the `[]`. `[&]` capture by ref. `[=]` capture by value.  
+compilers replace any non-static member variable referred to with a version using *this* pointer.  
+static variables can't be captured.  
+
+#### 32: Use init capture to move objects into closures.
