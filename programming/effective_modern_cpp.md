@@ -458,3 +458,5 @@ compilers replace any non-static member variable referred to with a version usin
 static variables can't be captured.  
 
 #### 32: Use init capture to move objects into closures.
+C++11 offers no way to capture a _move-only object_ int a closure.  
+C++14 offers direct support for moving objects into closures.  
