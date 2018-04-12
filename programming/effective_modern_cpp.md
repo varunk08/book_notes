@@ -460,3 +460,10 @@ static variables can't be captured.
 #### 32: Use init capture to move objects into closures.
 C++11 offers no way to capture a _move-only object_ int a closure.  
 C++14 offers direct support for moving objects into closures.  
+*Init capture* is a mechanism to perform any kind of captures, except a default capture mode and allows us to specify:
+1. name of a data member in the closure class
+2. expression initializing the data member
+
+`[closureMember = initExpr]`. Scope of "closureMember" is that of the closure class. Scope of "initExpr" is that of where the lamda was defined.  
+Another name is *generalized lambda capture*  
+Use `std::bind` to emulate this init capture in c++11.
