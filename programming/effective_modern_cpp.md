@@ -467,3 +467,11 @@ C++14 offers direct support for moving objects into closures.
 `[closureMember = initExpr]`. Scope of "closureMember" is that of the closure class. Scope of "initExpr" is that of where the lamda was defined.  
 Another name is *generalized lambda capture*  
 Use `std::bind` to emulate this init capture in c++11.
+
+"A lambda is just a way to cause a class and a class instance to be generated"  
+```
+auto func = std::bind(lambda_expr, std::move(data));
+```
+`std::bind` produces function objects. All data members in the closure is const.  
+
+#### 33: use `decltype` on `auto&&` parameters to `std::forward` them.  
