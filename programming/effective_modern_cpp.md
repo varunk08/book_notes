@@ -484,3 +484,14 @@ auto f=[auto&&... xs]
 ```
 
 #### 34: Prefer lambdas to `std::bind`
+lamdas are more readable
+c++14 standard suffixes for time: seconds(s), milliseconds (ms), hour (h) found in `std::literals` namespace  
+template type argument for the standard operator templates can be omitted (`std::plus<>()`)   
+compilers are less likely to inline func calls through func pointers  
+all objects passed to bind objects are passed by reference
+std::bind is justified in two constrained situations:
+1. move capture
+2. polymorphic function objects
+
+
+### Chapter 7. The Concurrency API
