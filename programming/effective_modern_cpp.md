@@ -475,3 +475,12 @@ auto func = std::bind(lambda_expr, std::move(data));
 `std::bind` produces function objects. All data members in the closure is const.  
 
 #### 33: use `decltype` on `auto&&` parameters to `std::forward` them.  
+if an lvalue is passed in `decltype()` gives an lvalue ref, an rvalue ref in case rvalue is passed in.  
+```
+auto f=[auto&&... xs]
+{
+    return normalize(std::forward<decltype(xs)>(xs)...);
+};
+```
+
+#### 34: Prefer lambdas to `std::bind`
