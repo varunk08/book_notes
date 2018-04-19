@@ -495,3 +495,23 @@ std::bind is justified in two constrained situations:
 
 
 ### Chapter 7. The Concurrency API
+
+#### 35: Prefer task-based programming to thread-based.  
+pass func to `std::async`  
+no straight forward way to get return value in thread-based approach.  
+types of threads:
+1. hardware threads
+2. software threads (os or system threads) - os schedules these on hardware threads
+3. std::threads: objects in a c++ process that act as handles to underlying software threads.  
+
+`std::system_error` is thrown when you try to create more than the system can provide in software threads, even if the func is `noexcept`.  
+`std::async` shifts the thread management responsibility to the implementer of the c++ standard library.  
+`std::sync` permits the scheduler to arrange for the specified function to be run on the thread requesting the func's result.   
+`std::launch::async` launch policy will ensure that the func will run on a different thread.  
+state of the art schedulers use thread pools and work-stealing algorithms  
+cases where threads might have to be used directly:
+1. need access to the API of the underlying thread implementation
+2. need to optimize thread usage - app execution profile is known and will be the only process on the machine with fixed hw characteristics.
+3. threading tech beyond c++ Concurrency API is needed - eg. thread pools.
+
+#### 36: Specify `std::launch::async` if asynchronicity is essential.
