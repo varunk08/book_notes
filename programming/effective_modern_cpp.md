@@ -515,3 +515,11 @@ cases where threads might have to be used directly:
 3. threading tech beyond c++ Concurrency API is needed - eg. thread pools.
 
 #### 36: Specify `std::launch::async` if asynchronicity is essential.
+using `std::async` is just requesting a async *launch policy*
+two policies in the enum:
+1. std::launch::async
+2. std::launch::deferred
+issues with default launch policy:
+1. not possible to predict whether f will run concurrently with t
+2. not possible to predict whether f runs on a thread different from the thread invoking get or wait or fut
+3. it may not be possible to predict whether f runs at all.
