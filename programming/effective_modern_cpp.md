@@ -523,3 +523,19 @@ issues with default launch policy:
 1. not possible to predict whether f will run concurrently with t
 2. not possible to predict whether f runs on a thread different from the thread invoking get or wait or fut
 3. it may not be possible to predict whether f runs at all.
+
+passing `std::launch::async` guarantees async execution.
+```
+auto fut = std::async(std::launch::async, func_to_be_executed);
+```
+
+#### 37: Make `std::threads` joinable on all paths.
+
+two states of thread object: *joinable* or *unjoinable*  
+a thread that's finished, blocked or waiting is *joinable*  
+
+*unjoinable* threads:
+1. default constructed `std::threads`
+2. `std::thread` objects that have been moved from
+3. `std::thread`s that have been *joined*
+4. `std::thread`s that have been *detached*
