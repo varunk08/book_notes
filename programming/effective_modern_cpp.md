@@ -539,3 +539,16 @@ a thread that's finished, blocked or waiting is *joinable*
 2. `std::thread` objects that have been moved from
 3. `std::thread`s that have been *joined*
 4. `std::thread`s that have been *detached*
+
+It is on us to ensure that if a `std::thread` object is used, it's made unjoinnable on every path out of the scope in which it's defined.
+
+RAII objects: put common termination actions in the destructor.  
+
+there is no support in c++11 for *interruptible threads*  
+
+1. Make `std::thread`s unjoinable on all paths.
+2. join-on-destruction can lead to difficult-to-debug performance anomalies
+3. detach-on-destruction can lead to difficult to debug undefined behavior
+4. declare `std::thread` objects last in lists of data members.
+
+#### 38: Be aware of varying thread handle destructor behavior
