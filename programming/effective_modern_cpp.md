@@ -552,3 +552,6 @@ there is no support in c++11 for *interruptible threads*
 4. declare `std::thread` objects last in lists of data members.
 
 #### 38: Be aware of varying thread handle destructor behavior
+both `std::thread` objects and future object can be thought of as *handles* to system threads.
+the callee (usually running asynchronously) writes the result of its computation into the communications channel (typically via a `std::promise`) and the caller reads that result using a `future`  
+the result of the callee is actually stored in the *shared state*.
