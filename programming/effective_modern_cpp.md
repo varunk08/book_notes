@@ -540,7 +540,7 @@ a thread that's finished, blocked or waiting is *joinable*
 3. `std::thread`s that have been *joined*
 4. `std::thread`s that have been *detached*
 
-It is on us to ensure that if a `std::thread` object is used, it's made unjoinnable on every path out of the scope in which it's defined.
+It is on us to ensure that if a `std::thread` object is used, it's made unjoinable on every path out of the scope in which it's defined.
 
 RAII objects: put common termination actions in the destructor.  
 
@@ -553,5 +553,19 @@ there is no support in c++11 for *interruptible threads*
 
 #### 38: Be aware of varying thread handle destructor behavior
 both `std::thread` objects and future object can be thought of as *handles* to system threads.
+
+`future`:  
+caller: `future`  
+callee: `promise`  
 the callee (usually running asynchronously) writes the result of its computation into the communications channel (typically via a `std::promise`) and the caller reads that result using a `future`  
-the result of the callee is actually stored in the *shared state*.
+the result of the callee is actually stored in the *shared state*. it's a heap based object.  
+
+`future` destructor behavior:
+1. The destructor of the last `future` referring to the shared state for a non-deferred task launched via `std::async` blocks until the task completes.
+2. the destructor for all other futures destroys the future object.
+
+The API for futures offers no way to determine whether a future refers to a shared state arising from a call to `std::async`, so given an arbitrary future object, it's not possible to know whether it will block in its destructor waiting for an asynchronously running task to finish.  
+
+Other ways shared states get created: `std::packaged_task`  
+
+#### 39: Consider `void` futures for one-shot event communication
