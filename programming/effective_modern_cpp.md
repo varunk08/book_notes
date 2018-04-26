@@ -639,3 +639,5 @@ p.get_future().wait();
 ```
 cost: heap allocation of shared state. *one-shot* mechanism: `promise` is set only once.  
 only lower level APIs offer thread priority and affinity settings. (posix threads, windows threads are low level. the c++ concurrency API is high level)  
+
+#### 40: Use `std::atomic` for concurrency and `volatile` for special memory
