@@ -569,3 +569,73 @@ The API for futures offers no way to determine whether a future refers to a shar
 Other ways shared states get created: `std::packaged_task`  
 
 #### 39: Consider `void` futures for one-shot event communication
+communication between two async tasks  
+`condvar`: the receiving task waits on the condition variable and the detecting task notifies that `condvar` when the event occurs.  
+```
+
+std::condition_variable cv;
+std::mutex m;
+
+// code for detecting task
+cv.notify_one();
+
+// code for reacting task
+{
+    std::unique_lock<std::mutex> lk (mL);
+    cv.wait(lk);
+}
+```
+in order for the notification of a condvar to wake another task, the other task must be waiting on that condvar, else the reacting task will wait forever.  
+*spurious wakeups*: code waiting on a condition may be awakened even if the condvar wasn't notified. To check for this:  
+```
+cv.wait (lk, []{return whether the event has occured; });
+```
+*shared boolean flag:* the flag is initially false.
+```
+std::atomic<bool> flag(false);
+
+
+flag=true; // notify the reacting task
+
+while(!flag); // reacting task code
+```
+not good: cost of polling   
+combination of the approaches: a flag with mutex for access synchronization.  
+```
+std::condition_variable cv;
+std::mutex m;
+
+bool flag(false);
+
+{
+    std::lock_guard<std::mutex> g (m);
+    flag = true;
+}
+
+cv.notify_one(); // detecting task notifies
+
+
+// reacting task
+{
+    std::unique_lock<std::mutex> lk (m);
+    cv.wait(lk, [] {return flag;}); // to avoid spurious wakeups
+}
+// m is now unlocked
+```
+the reacting task will awaken and check the flag.  
+
+Another approach: Have a reacting task `wait` on a future.  
+detecting task has a `std::promise` object. reacting task has the `future`.  
+since it's used as a bool, a void type would do - just to check set or unset.  
+```
+std::promise<void> p;
+
+// tell reacting task
+p.set_value();
+
+// wait on future
+p.get_future().wait();
+// react to event
+```
+cost: heap allocation of shared state. *one-shot* mechanism: `promise` is set only once.  
+only lower level APIs offer thread priority and affinity settings. (posix threads, windows threads are low level. the c++ concurrency API is high level)  
