@@ -641,3 +641,15 @@ cost: heap allocation of shared state. *one-shot* mechanism: `promise` is set on
 only lower level APIs offer thread priority and affinity settings. (posix threads, windows threads are low level. the c++ concurrency API is high level)  
 
 #### 40: Use `std::atomic` for concurrency and `volatile` for special memory
+
+Once an `std::atomic` object has been constructed, operations on it behave more less as if they were inside a mutex-protected critical section. The operations are generally implemented using special machine instructions that are more **efficient** than would be if a mutex were employed.  
+In
+```
+std::atomic<int> ai(0);
+std::cout << ai;
+```
+the read of `ai` is atomic.  
+compilers perform optimizations that would be valid in programs without data races. These optimizations yield unpredictable behaviour in programs where races are present.  
+Atomics prevent code re-ordering errors.  
+`volatile`: Good for special mem ops (mem mapped IO). Bad for concurrent programming. like telling the compiler don't perform any optimizations on ops on this memory  
+`std::atomic` Good for concurrent programming. Bad for special mem ops as compilers can optimize away redundant reads and dead stores. doesn't offer copy and move operations (assign and construct)  
