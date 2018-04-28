@@ -653,3 +653,36 @@ compilers perform optimizations that would be valid in programs without data rac
 Atomics prevent code re-ordering errors.  
 `volatile`: Good for special mem ops (mem mapped IO). Bad for concurrent programming. like telling the compiler don't perform any optimizations on ops on this memory  
 `std::atomic` Good for concurrent programming. Bad for special mem ops as compilers can optimize away redundant reads and dead stores. doesn't offer copy and move operations (assign and construct)  
+
+### Chapter 8
+#### 41: Consider pass by value for copyable parameters that are cheap to move and always copied
+old important rule: *avoid passing by value any user-defined types*.  
+consider only for *copyable* parameters.   
+a function can copy a parameter by two ways: *construction* or *assignment*  
+the need to perform memory allocation and deallocation typically occurs only when true copy operations are performed.  
+the most practical approach is to use overloading or universal references instead of pass by value unless it's been demonstrated that pass by value yields acceptably efficient code for the parameter type you need.  
+using by-reference parameter passing, chains of calls don't incur accumulated pass by value overhead.  
+*slicing problem* if you have a function that is designed to accept a parameter of a base class type or any type derived from it, you don't want to declare a pass-by-value parameter of that type, because you'll slice off the derived-class characteristics of any derived type object that may be passed in.  
+
+For the special case of copyable, cheap-to-move types passed to functions that always copy them and where slicing is not a concern, pass by value can offer an easy-to-implement alternative that's nearly as efficient as its pass-by-reference competitors but avoids their disadvantages.  
+
+#### 42: Consider emplacement instead of insertion
+Insertion functions: `insert, push_front, push_back` or for `std::forward_list`, `insert_after`  
+a string literal is not a `std::string`, so `push_back("string literal")` will construct an `std::string`  
+runtime behaviour of passing string literals to `push_back`:
+1. construction of `std::string`, a temp object
+2. `temp` is passed to the rvalue overload for `push_back`. A copy is then constructed in memory for the `std::vector` using move constructor
+3. `temp` is destroyed using `std::string` destructor
+
+`emplace_back` uses whatever arguments are passed to it to construct a `std::string` directly inside the `std::vector`, no temporaries are involved.  
+it uses perfect forwarding  
+available for every std container.
+`emplace_front` for `push_front`, `emplace` for `insert` also available  
+key: emplacement functions take *constructor arguments* for the objects to be inserted.  
+sometimes insertion outperforms emplacement. benchmarking is required to determine use case.  
+emplacement wins if the following were always true:
+1. value being added is constructed into the container, not assigned
+move assignment requires an object to move from, so a temporary object is created.
+2. argument types being passed differ from the type held by the container.
+if its the same type, then insertion doesn't have to create a temporary object
+3. new value is not a duplicate, so the container wont reject it
