@@ -686,3 +686,25 @@ move assignment requires an object to move from, so a temporary object is create
 2. argument types being passed differ from the type held by the container.
 if its the same type, then insertion doesn't have to create a temporary object
 3. new value is not a duplicate, so the container wont reject it
+
+when working with containers of resource-managing objects, you must take care to ensure that if you choose an emplacement function over its insertion counterpart, you are not paying for improved code efficiency with diminished exception safety.  
+emplacement functions are unlikely to outperform insertion functions when you're adding resrouce-managing objects to containers  
+since we're passing *construction arguments* through emplace, `explicit` constructors can be tricked.  
+```
+std::regex r = nullptr; // doesn't compile
+std::vector<std::regex> regexes;
+regexes.emplace_back(nullptr); // compiles
+// because, this happens:
+std::regex r(nullptr); // compiles
+```
+*copy initialization* can't use explicit constructor vs *direct initialization* can.  
+emplacement funcs use *direct initialization*, and hence use explicit constructors. insertion functions use *copy initialization* and hence can't use `explicit` constructors.  
+```
+regexes.emplace_back(nullptr); //compiles
+regexes.push_back(nullptr); // doesn't compile
+```
+
+
+
+
+### End.
