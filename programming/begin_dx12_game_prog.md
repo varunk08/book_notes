@@ -24,9 +24,9 @@ DXGI. *DirectX graphics infrastructure* is an API used along with D3D. It is a c
 `IDXGIAdapter` for display adapters (software and hardware adapters).  
 `IDXGIOutput` for display output (monitors).  
 
-More info on DXGI:
+More info on DXGI:  
 [**DXGI overview:**](http://msdn.microsoft.com/en-us/library/windows/desktop/bb205075(v=vs.85).aspx)  
-[**DXGI best practices:**](http://msdn.microsoft.com/en-us/library/windows/desktop/ee417025(v=vs.85).aspx)
+[**DXGI best practices:**](http://msdn.microsoft.com/en-us/library/windows/desktop/ee417025(v=vs.85).aspx)  
 [**DXGI 1.4 improvements:**]( http://msdn.microsoft.com/en-us/library/windows/desktop/mt427784%28v=vs.85%29.aspx)  
 
 #### CPU/GPU interaction
