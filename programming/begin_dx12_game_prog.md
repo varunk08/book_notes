@@ -16,3 +16,17 @@ Types of descriptors:
 2. Sampler descriptors
 3. RTV: render target
 4. DSV: depth stencil
+
+A *descriptor heap* is an array of descriptors. You will need a separate descriptor heap for each type of descriptor.
+*Super sampling* makes the back buffer and depth buffer 4x bigger than the screen resolution and then resolving/ down sampling. *multisampling* is cheaper. It computes the color at the pixel center of the sub-pixel and resolves the output pixel.
+
+DXGI. *DirectX graphics infrastructure* is an API used along with D3D. It is a common API for multiple graphics APIs that require common functionality like swapchains, display adapter enumeration, formats etc. Provides,  
+`IDXGIAdapter` for display adapters (software and hardware adapters).  
+`IDXGIOutput` for display output (monitors).  
+
+More info on DXGI:
+[**DXGI overview:**](http://msdn.microsoft.com/en-us/library/windows/desktop/bb205075(v=vs.85).aspx)  
+[**DXGI best practices:**](http://msdn.microsoft.com/en-us/library/windows/desktop/ee417025(v=vs.85).aspx)
+[**DXGI 1.4 improvements:**]( http://msdn.microsoft.com/en-us/library/windows/desktop/mt427784%28v=vs.85%29.aspx)  
+
+#### CPU/GPU interaction
