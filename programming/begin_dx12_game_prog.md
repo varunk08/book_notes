@@ -30,3 +30,10 @@ More info on DXGI:
 [**DXGI 1.4 improvements:**]( http://msdn.microsoft.com/en-us/library/windows/desktop/mt427784%28v=vs.85%29.aspx)  
 
 #### CPU/GPU interaction
+
+`__uuidof(**(ppType))` evaluates to the COM interface ID of `(**(ppType))`  
+Associated with a command list is a memory backing class called a  `ID3D12CommandAllocator`. As commands are recorded to the command list, they will actually be stored in the associated command allocator.  
+
+You can create multiple command lists associated with the same allocator, but you cannot record at the same time. All command lists must be closed except the one whose commands we are going to record.  
+Resetting the command list does not affect the commands in the command allocator because the associated command allocator still has the commands in memory that the command queue references.  
+To reuse the command allocator memory for the next frame, `ID3D12CommandAllocator::Reset` is called. We must however make sure that a command allocator is not reset until we are sure that the **GPU has finished executing all the commands in the allocator**.    
