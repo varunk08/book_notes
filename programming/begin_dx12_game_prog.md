@@ -36,4 +36,11 @@ Associated with a command list is a memory backing class called a  `ID3D12Comman
 
 You can create multiple command lists associated with the same allocator, but you cannot record at the same time. All command lists must be closed except the one whose commands we are going to record.  
 Resetting the command list does not affect the commands in the command allocator because the associated command allocator still has the commands in memory that the command queue references.  
-To reuse the command allocator memory for the next frame, `ID3D12CommandAllocator::Reset` is called. We must however make sure that a command allocator is not reset until we are sure that the **GPU has finished executing all the commands in the allocator**.    
+To reuse the command allocator memory for the next frame, `ID3D12CommandAllocator::Reset` is called. We must however make sure that a command allocator is not reset until we are sure that the **GPU has finished executing all the commands in the allocator**.  
+
+A **fence** is used to ensure that the GPU has finished executing commands up to a point.  
+
+**Resource Transitions**. Resources are in a default state when created. *Barriers* are used to prevent *resource hazards*.
+
+**Multi-threading**. Multiple command lists can be built in parallel. Command lists, command allocators are *not free threaded* - each thread will get it's own command list and allocator. Command queue is free threaded. The maximum number of command lists that the app will use must be specified at initialization.  
+ 
