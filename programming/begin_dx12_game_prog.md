@@ -43,4 +43,18 @@ A **fence** is used to ensure that the GPU has finished executing commands up to
 **Resource Transitions**. Resources are in a default state when created. *Barriers* are used to prevent *resource hazards*.
 
 **Multi-threading**. Multiple command lists can be built in parallel. Command lists, command allocators are *not free threaded* - each thread will get it's own command list and allocator. Command queue is free threaded. The maximum number of command lists that the app will use must be specified at initialization.  
- 
+
+**Initializing Direct3D**:
+1. Create the `ID3D12Device` using the `D3D12CreateDevice`
+2. create a fence object and query descriptor sizes
+3. check 4x MSAA quality level support
+4. create command queue, command list allocator and main command list
+5. describe and create the swap chain
+6. create the descriptor heaps the application requires
+7. resize the back buffer and create a render target view to the back buffer
+8. create the depth/stencil buffer and its associated depth/stencil view
+9. set the viewport and scissor rectangles
+
+
+A WARP (windows advanced rasterization platform) device is a software adapter.  
+Command list needs to be in closed state before resetting.  
