@@ -58,3 +58,7 @@ A **fence** is used to ensure that the GPU has finished executing commands up to
 
 A WARP (windows advanced rasterization platform) device is a software adapter.  
 Command list needs to be in closed state before resetting.  
+
+A handle to the first descriptor is obtained with the `ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart` method.
+In-order to bind a resource to a pipeline, a *view* to a resource is created and it is bound to the pipeline stage.  
+ 
