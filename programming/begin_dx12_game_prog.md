@@ -5,7 +5,13 @@ Book notes for
 
 #### Windows programming (aside)
 
-
+Uses native win32 API. `WNDCLASS` structure used to create a window class.  
+`CreateWindow` creates window. `ShowWindow` displays it.  
+Ref book: *Programming Windows by Charles Petzold*  
+Windows applications do not have direct access to the hardware. Cannot write to video memory directly.   
+*Event driven programming model*: an app waits for something to happen. Windows sends a *message* to the app on event by adding it to the *message queue*. The app dispatches the message to the *window procedure* for a particular window that message is for.  
+`DefWindowProc` is the default window procedure provided by windows.
+*Unicode*: uses 16-bit encoding. For unicode in c++ we use *wide character* type `wchar_t`. C++ std library also provides `std::wstring`.   
 
 #### Chapter 4 Direct 3D initialization
 D3d12 designed to significantly reduce CPU overload.  
