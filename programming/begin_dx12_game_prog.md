@@ -3,6 +3,10 @@ Book notes for
 #### by Frank D. Luna
 
 
+#### Windows programming (aside)
+
+
+
 #### Chapter 4 Direct 3D initialization
 D3d12 designed to significantly reduce CPU overload.  
 
@@ -61,4 +65,5 @@ Command list needs to be in closed state before resetting.
 
 A handle to the first descriptor is obtained with the `ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart` method.
 In-order to bind a resource to a pipeline, a *view* to a resource is created and it is bound to the pipeline stage.  
- 
+
+Pixels outside the scissor rectangle are culled - not rasterized to the back buffer. (example, not rendering in areas covered by UI elements). Scissor rects need to be reset whenever the command list is reset. Multiple scissor rects can't be specified for a single render target.  
