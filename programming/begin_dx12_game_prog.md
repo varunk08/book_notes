@@ -73,3 +73,9 @@ A handle to the first descriptor is obtained with the `ID3D12DescriptorHeap::Get
 In-order to bind a resource to a pipeline, a *view* to a resource is created and it is bound to the pipeline stage.  
 
 Pixels outside the scissor rectangle are culled - not rasterized to the back buffer. (example, not rendering in areas covered by UI elements). Scissor rects need to be reset whenever the command list is reset. Multiple scissor rects can't be specified for a single render target.  
+
+**Timing and animation**
+Performance timer: win32 provides `QueryPerformanceCounter` - gives time in counts
+`QueryPerformanceFrequency` - returns counts per second  
+
+`GameTimer` class is implemented by the author  
