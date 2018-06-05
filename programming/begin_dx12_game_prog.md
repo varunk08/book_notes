@@ -2,7 +2,6 @@ Book notes for
 ### Beginning DirectX12 Game programming
 #### by Frank D. Luna
 
-
 #### Windows programming (aside)
 
 Uses native win32 API. `WNDCLASS` structure used to create a window class.  
@@ -65,7 +64,6 @@ A **fence** is used to ensure that the GPU has finished executing commands up to
 8. create the depth/stencil buffer and its associated depth/stencil view
 9. set the viewport and scissor rectangles
 
-
 A WARP (windows advanced rasterization platform) device is a software adapter.  
 Command list needs to be in closed state before resetting.  
 
@@ -79,3 +77,6 @@ Performance timer: win32 provides `QueryPerformanceCounter` - gives time in coun
 `QueryPerformanceFrequency` - returns counts per second  
 
 `GameTimer` class is implemented by the author  
+
+**The Demo Application Framework**
+Clients are to derive from `D3DApp` class.  
