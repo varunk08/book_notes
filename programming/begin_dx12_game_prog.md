@@ -79,4 +79,5 @@ Performance timer: win32 provides `QueryPerformanceCounter` - gives time in coun
 `GameTimer` class is implemented by the author  
 
 **The Demo Application Framework**
-Clients are to derive from `D3DApp` class.  
+Clients are to derive from `D3DApp` class. All examples in the book derive from this common util class. It has "framework" methods that handle the common misc stuff like message handling and "non-framework" virtual methods that each example must implement.  
+`ThrowIfFailed` is a macro that can print the code line where an error occured.  
