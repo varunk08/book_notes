@@ -15,3 +15,10 @@ Case studies.
 Process was based on functional modules.
 Limited reusability on change of process logic.
 Process is broken down into objects which can be independent of process changes.
+
+### Relationship between Classes
+(in order of restrictiveness)
+1. Association
+2. Inheritance
+3. Genericity (type parameterization)
+
