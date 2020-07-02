@@ -23,7 +23,7 @@ Process is broken down into objects which can be independent of process changes.
 3. Genericity (type parameterization)
 
 #### Association
-Arity (one-one, one-many)
+Arity (one-one, one-many)  
 Aggretation/ composition (triangle composed of vertices)
 
 #### Inheritance
