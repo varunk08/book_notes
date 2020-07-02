@@ -8,7 +8,8 @@ Useful design patterns.
 Case study.
 #### Part 3
 Advanced topics.\
-Inheritance. *Liskov Substituition Principle and Open-closed principle*\
+Inheritance. \
+*Liskov Substituition Principle and Open-closed principle*\
 Case studies.
 
 ### Introduction
