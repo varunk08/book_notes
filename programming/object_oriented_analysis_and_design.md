@@ -42,17 +42,17 @@ Using placeholders for types.
 ````
 class Singleton {
 public:
-static Singleton* GetInstance() {
-  if (pInstance == nullptr) {
-    pInstance = new Singleton();
+  static Singleton& GetInstance() {
+      static Singleton instance;
+      return instance;
   }
-  return pInstance;
-}
-Singleton(const Singleton& other) = delete;
-void operator=(const Singleton& other) = delete;
-
+  Singleton(const Singleton& other) = delete;
+  void operator=(const Singleton& other) = delete;
+  
 private:
-Singleton* pInstance = nullptr;
-Singleton() {}
+  Singleton(){}
 };
 ````
+Singleton's can be inherited from to create Singleton subclasses.
+**Adapter** 
+Satisfy an interface requirement using an incompatible implementation through an adapter class.
