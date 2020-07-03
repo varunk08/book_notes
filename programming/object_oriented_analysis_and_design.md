@@ -30,7 +30,7 @@ Aggretation/ composition (triangle composed of vertices)
 #### Inheritance
 Hierarchy\
 Inheriting from an Interface\
-Polymorphism and dynamic binding\
+Polymorphism and dynamic binding
 
 #### Genericity
 Using placeholders for types.
