@@ -37,7 +37,7 @@ Using placeholders for types.
 
 
 ### Elementary Design patterns
-**Iterator** A pattern where an object is used to traverse a collection. Must support operations like next() and get()
+**Iterator** A pattern where an object is used to traverse a collection. Must support operations like next() and get()  
 **Singleton** Only a single instance. Private constructor. Use static getInstance()
 ````
 class Singleton {
@@ -53,6 +53,6 @@ private:
   Singleton(){}
 };
 ````
-Singleton's can be inherited from to create Singleton subclasses.
+Singleton's can be inherited from to create Singleton subclasses.  
 **Adapter** 
 Satisfy an interface requirement using an incompatible implementation through an adapter class.
