@@ -34,3 +34,25 @@ Polymorphism and dynamic binding
 
 #### Genericity
 Using placeholders for types.
+
+
+### Elementary Design patterns
+**Iterator** A pattern where an object is used to traverse a collection. Must support operations like next() and get()
+**Singleton** Only a single instance. Private constructor. Use static getInstance()
+````
+class Singleton {
+public:
+static Singleton* GetInstance() {
+  if (pInstance == nullptr) {
+    pInstance = new Singleton();
+  }
+  return pInstance;
+}
+Singleton(const Singleton& other) = delete;
+void operator=(const Singleton& other) = delete;
+
+private:
+Singleton* pInstance = nullptr;
+Singleton() {}
+};
+````
