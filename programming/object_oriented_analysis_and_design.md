@@ -28,8 +28,8 @@ Arity (one-one, one-many)
 Aggretation/ composition (triangle composed of vertices)
 
 #### Inheritance
-Hierarchy\
-Inheriting from an Interface\
+Hierarchy  
+Inheriting from an Interface  
 Polymorphism and dynamic binding
 
 #### Genericity
