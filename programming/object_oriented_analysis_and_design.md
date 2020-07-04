@@ -60,13 +60,13 @@ Satisfy an interface requirement using an incompatible implementation through an
 
 ### Analysing a system
 #### 1. Gather the requirements.
-Functional requirements - interaction b/w system and users\
-Non-functional requirements - response time, usability, accuracy.\
+Functional requirements - interaction b/w system and users
+Non-functional requirements - response time, usability, accuracy.
 #### 2. Precisely document the functionality required of the system.
-- Use case analysis\
+- Use case analysis
 #### 3. Develop a conceptual model of the system, listing conceptual classes and their relationships.
-one method: look at the use cases and pick out all the nouns in the description of the requirements\
-Use knowledge of the domain\
+one method: look at the use cases and pick out all the nouns in the description of the requirements  
+Use knowledge of the domain
 
 ### Design and implementation
 - what platforms will the system run on?
