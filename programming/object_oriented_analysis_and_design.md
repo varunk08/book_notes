@@ -12,6 +12,7 @@ Inheritance. \
 *Liskov Substituition Principle and Open-closed principle*\
 Case studies.
 
+---
 ### Introduction
 Process was based on functional modules.  
 Limited reusability on change of process logic.  
@@ -76,4 +77,33 @@ Use knowledge of the domain
 - distributed?
 - data storage
 
+### Advanced OOP design topics
+Major goal of inheritance is reuse.  
+Inheritance - subclassing or implementing interfaces
+#### Applications of inheritance:
+**Restricting behaviours**: Inheritance can be used to restrict. `Square` is a restricted version of `Rectangle`. `BlueLabel` is a restricted version of `Label` widget.  
+**Abstract superclass**: Force extract common functionality from potential future sub-classes. `Account` is a general concept, while `CheckingAccount` and `SavingsAccount` are concrete.  
+**Adding Features**: `DataStream` is the base and `ReReadableDataStream` is with added feature of `reReadability`.  
+**Hiding features of the superclass**: `Queue` is a restricted version of `List` that allows only add/remove from one end.  
+**Combining structural and type inheritance**: `BinarySearchTree` can be seen as a class that extends `BinaryTree` (structural) and implements `OrderedList` interface (implementation inheritance).  
+**Limitations**:  
+- deep hierarchies
+- may need to hide super class members
+- derived class's type may not be a true subType of the super class's type.
+**Address limitations**:  
+- inherit from abstract types than from concrete types
+- favor composition over inheritance
 
+### Modeling with Finite State Machines
+GUI systems  
+Unlike say a `Library` system, a `microwave` system doesn't have any standard business processes for use-case modeling.  
+#### Finite state machines
+Transition defined by 4-tuple `(si, sf, I, O)`  
+si = initial state, sf = final state, I = input, O = output if any  
+Mealy machine - output depends on the event and the current state  
+Moore machine - output depends only on the current state  
+Table of `(state, event)` pairs  
+There are algorithms for state minimisation  
+**Solution**  
+1. Identify conceptual classes (construct a list of nouns)
+2. Identify software classes
